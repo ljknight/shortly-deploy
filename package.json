@@ -31,6 +31,9 @@
     "bluebird": "1.0.8"
   },
   "devDependencies": {
+    "grunt-deploy": "^0.1.7",
+    "grunt-exec": "^0.4.6",
+    "grunt-forever": "^0.4.7",
     "supertest": "^0.10.0"
   }
 }
