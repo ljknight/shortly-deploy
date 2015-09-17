@@ -91,15 +91,10 @@ module.exports = function(grunt) {
         },
         gitCommit:{
           command:'git commit -m "commit bot says COMMIT"'
+        },
+        gitPush:{
+          command: 'git push azure master'
         }
-        // git:{
-        //   command: 'git commit -m "autocommit robot commits well"'
-        // },
-        // git:{
-        //   command: 'git push azure master'
-        // }
-
-    
           
     },
 
