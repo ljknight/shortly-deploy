@@ -2,9 +2,26 @@ var db = require('../config');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
-var Url = mongoose.model('Url', db.urlSchema);
 
 
+
+
+  db.urlSchema = mongoose.Schema({
+    url : String,
+    base_url: String,
+    code: makeCode(),
+    title: String,
+    visits: Integer
+  });
+
+  var makeCode = function(){
+    var shasum = crypto.createHash('sha1');
+    return shasum.digest('hex').slice(0,5)
+  };
+
+
+
+  module.exports = mongoose.model('Url', db.urlSchema);
 
 
 
@@ -31,4 +48,4 @@ var Url = mongoose.model('Url', db.urlSchema);
 //   }
 // });
 
-// module.exports = Link;
+// module.exports = Url;

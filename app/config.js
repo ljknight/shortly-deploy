@@ -1,35 +1,38 @@
+var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
+
+// var connection = mongoose.createConnection(localhost, 'shortlydb');
 
 mongoose.connect('mongodb://localhost/shortlydb');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (cb) {
-
-  db.urlSchema = mongoose.Schema({
-    url : String,
-    base_url: String,
-    code: urlShorten(),
-    title: String,
-    visits: Integer
-  });
-  var urlShorten = function(){
-    var shasum = crypto.createHash('sha1');
-    return shasum.digest('hex').slice(0,5)
-  }
-
-
-  db.userSchema = mongoose.Schema({
-    username: String,
-    password: String
-  });
-
-});
-
 module.exports = db;
 
 
 
 
+
+// var User = db.Model.extend({
+//   tableName: 'users',
+//   hasTimestamps: true,
+//   initialize: function(){
+//     this.on('creating', this.hashPassword);
+//   },
+//   comparePassword: function(attemptedPassword, callback) {
+//     bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
+//       callback(isMatch);
+//     });
+//   },
+//   hashPassword: function(){
+//     var cipher = Promise.promisify(bcrypt.hash);
+//     return cipher(this.get('password'), null, null).bind(this)
+//       .then(function(hash) {
+//         this.set('password', hash);
+//       });
+//   }
+// });
 
 
 

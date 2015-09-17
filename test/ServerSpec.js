@@ -5,7 +5,7 @@ var app = require('../server-config.js');
 
 var db = require('../app/config');
 var User = require('../app/models/user');
-var Link = require('../app/models/link');
+// var Link = require('../app/models/link');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
@@ -13,14 +13,14 @@ var Link = require('../app/models/link');
 
 var User = require('../app/models/user');
 var Link = require('../app/models/link');
-('', function() {
+describe('mongoDB thing', function() {
 
   beforeEach(function(done) {
     // Log out currently signed in user
     request(app)
       .get('/logout')
       .end(function(err, res) {
-
+        console.log(Link);
         // Delete objects from db so they can be created later for the test
         Link.remove({url : 'http://www.roflzoo.com/'}).exec();
         User.remove({username : 'Savannah'}).exec();
