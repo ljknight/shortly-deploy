@@ -6,8 +6,9 @@ iisnode.yml
 
 db/shortly.sqlite
 node_modules
-public/dist
-
+public/lib/miniLib.js
+public/lib/miniLib.min.js
+public/style.min.css
 # Icon must ends with two \r.
 Icon
 

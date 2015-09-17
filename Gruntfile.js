@@ -98,21 +98,21 @@ module.exports = function(grunt) {
           
     },
 
-    deploy: {
-      liveservers: {
-        options:{
-          servers: [{
-            host: 'http://shlorian.azurewebsites.net/',
-            port: process.env.port,
-            username: 'ljknight',
-            password: 'laura123'
-          }],
-          cmds_before_deploy: ["shell"],
-          cmds_after_deploy: []
-          // deploy_path: 'your deploy path in server'
-        }
-      }
-    }
+    // deploy: {
+    //   liveservers: {
+    //     options:{
+    //       servers: [{
+    //         host: 'http://shlorian.azurewebsites.net/',
+    //         port: process.env.port,
+    //         username: 'ljknight',
+    //         password: 'laura123'
+    //       }],
+    //       cmds_before_deploy: ["shell"],
+    //       cmds_after_deploy: []
+    //       // deploy_path: 'your deploy path in server'
+    //     }
+    //   }
+    // }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -124,7 +124,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-forever');
-  grunt.loadNpmTasks('grunt-deploy');
+  // grunt.loadNpmTasks('grunt-deploy');
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -136,7 +136,7 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    grunt.task.run([ 'watch' ]);
+    // grunt.task.run([ 'watch' ]);
   });
 
   ////////////////////////////////////////////////////
@@ -155,17 +155,14 @@ module.exports = function(grunt) {
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
-      'deploy'
+      'shell'
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy2',[
-   'upload','default'
+  grunt.registerTask('deploy',[
+   'test','build','shell'
   ]);
-
-  grunt.registerTask('default',['shell']);
-
 
 };
