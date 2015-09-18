@@ -20,7 +20,7 @@ describe('mongoDB thing', function() {
     request(app)
       .get('/logout')
       .end(function(err, res) {
-        console.log(Link);
+
         // Delete objects from db so they can be created later for the test
         Link.remove({url : 'http://www.roflzoo.com/'}).exec();
         User.remove({username : 'Savannah'}).exec();
@@ -30,7 +30,7 @@ describe('mongoDB thing', function() {
       });
   });
 
-  describe('Link creation: ', function() {
+  xdescribe('Link creation: ', function() {
 
     it('Only shortens valid urls, returning a 404 - Not found for invalid urls', function(done) {
       request(app)
@@ -120,6 +120,7 @@ describe('mongoDB thing', function() {
       });
 
       it('Shortcode redirects to correct url', function(done) {
+      
         var sha = link.code;
         request(app)
           .get('/' + sha)
@@ -135,7 +136,7 @@ describe('mongoDB thing', function() {
 
   }); // 'Link creation'
 
-  describe('Priviledged Access:', function() {
+  xdescribe('Priviledged Access:', function() {
 
     // /*  Authentication  */
     // // TODO: xit out authentication
@@ -171,7 +172,7 @@ describe('mongoDB thing', function() {
 
   }); // 'Privileged Access'
 
-  describe('Account Creation:', function() {
+  xdescribe('Account Creation:', function() {
 
     it('Signup creates a new user', function(done) {
       request(app)

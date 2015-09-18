@@ -13,18 +13,50 @@ db.userSchema = mongoose.Schema({
 });
 
 db.userSchema.methods.hashPassword = function(password, cb){
-  console.log('THIS IS THIS',this);
-  bycrypt.hash(password, null, null);
-};
-
-db.userSchema.methods.comparePassword = function(attemptedPassword, callback){
-  bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
-    callback(isMatch);
+  // console.log('hi')
+  bcrypt.hash(password, null, null, function(err, pass){
+    if(err){console.log(err); }
+    this.password = pass;
+    console.log(this);
+    cb();
   });
 };
 
-module.exports = mongoose.model('User', db.userSchema);
-// });
+db.userSchema.pre('save', function(next) {
+  this.hashPassword(this.password, next);
+});
+
+var comparePassword = function(realPassword, attemptedPassword, callback){
+  bcrypt.compare(attemptedPassword, realPassword, function(err, isMatch) {
+    if(err) {
+      console.log('bcrypterr',err);
+      callback(isMatch);
+    }
+    else {
+      callback(isMatch);
+    };  
+  });
+
+
+
+  // mongoose.model('User', db.userSchema).find({username: attemptedUser}, function(err, users){
+  //   if(err) {
+  //     console.log('user page error', err)
+  //   } else {
+  //     users.forEach(function(user){
+  //       bcrypt.compare(attemptedPassword, user.password, function(err, isMatch) {
+  //         callback(isMatch);
+  //       });
+  //     });
+  //   }
+  // });
+};
+
+var schema = mongoose.model('User', db.userSchema);
+schema['comparePassword'] = comparePassword;
+
+module.exports = schema;
+
 
 
 
